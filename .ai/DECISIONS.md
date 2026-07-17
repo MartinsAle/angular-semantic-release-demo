@@ -69,3 +69,13 @@ Registro das decisões do projeto. Novas decisões devem ser acrescentadas aqui 
 - **Contexto:** Evitar misturar scaffold, hooks e release numa única etapa.
 - **Decisão:** Implementar na ordem do [ROADMAP.md](./ROADMAP.md); cada fase atualiza docs e `AI_CONTEXT.md`.
 - **Consequências:** Entregas incrementais; menos risco de configuração incompleta.
+
+## ADR-010 — Husky 9 + lint-staged + Commitlint
+
+- **Status:** Aceita
+- **Contexto:** Fase 1 — hooks locais antes do Semantic Release.
+- **Decisão:**
+  - Husky **v9** com `"prepare": "husky"` e hooks simples em `.husky/` (sem `husky.sh`)
+  - `pre-commit` → `npx lint-staged` (ESLint + Prettier só no staged)
+  - `commit-msg` → `npx --no -- commitlint --edit "$1"` com `@commitlint/config-conventional`
+- **Consequências:** Commits locais passam por lint rápido e Conventional Commits; Semantic Release fica para a Fase 2.

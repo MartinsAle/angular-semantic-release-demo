@@ -1,6 +1,6 @@
 # Conventional Commits
 
-**Status:** Pendente (será aplicado na fase Commitlint)
+**Status:** Ativo (validado pelo Commitlint no hook `commit-msg`)
 
 ## Objetivo
 
@@ -20,18 +20,18 @@ Formato:
 
 ### Tipos comuns
 
-| Tipo | Uso | Impacto no versionamento (típico) |
-|------|-----|-----------------------------------|
-| `feat` | Nova funcionalidade | MINOR |
-| `fix` | Correção de bug | PATCH |
-| `docs` | Documentação | — (sem release, em geral) |
-| `style` | Formatação | — |
-| `refactor` | Refatoração sem mudar comportamento | — |
-| `perf` | Performance | PATCH (conforme config) |
-| `test` | Testes | — |
-| `build` | Build / deps | — |
-| `ci` | CI | — |
-| `chore` | Manutenção | — |
+| Tipo       | Uso                                 | Impacto no versionamento (típico) |
+| ---------- | ----------------------------------- | --------------------------------- |
+| `feat`     | Nova funcionalidade                 | MINOR                             |
+| `fix`      | Correção de bug                     | PATCH                             |
+| `docs`     | Documentação                        | — (sem release, em geral)         |
+| `style`    | Formatação                          | —                                 |
+| `refactor` | Refatoração sem mudar comportamento | —                                 |
+| `perf`     | Performance                         | PATCH (conforme config)           |
+| `test`     | Testes                              | —                                 |
+| `build`    | Build / deps                        | —                                 |
+| `ci`       | CI                                  | —                                 |
+| `chore`    | Manutenção                          | —                                 |
 
 Breaking change: `BREAKING CHANGE:` no rodapé ou `!` após o type (`feat!: ...`) → MAJOR.
 

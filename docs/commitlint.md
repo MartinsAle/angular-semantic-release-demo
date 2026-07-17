@@ -1,6 +1,6 @@
 # Commitlint
 
-**Status:** Pendente
+**Status:** Configurado
 
 ## Objetivo
 
@@ -15,19 +15,50 @@ git commit
   → aceita ou rejeita a mensagem
 ```
 
-## O que será configurado
+## Instalação (já aplicada)
 
-- Pacotes `@commitlint/cli` e `@commitlint/config-conventional` (versões atuais, não depreciadas)
-- Arquivo de config (ex.: `commitlint.config.js` ou equivalente flat)
-- Hook Husky `commit-msg` apontando para o Commitlint
+```bash
+npm install --save-dev @commitlint/cli @commitlint/config-conventional
+```
 
-## Como usar neste repo
+## Configuração
 
-Será preenchido na fase Commitlint:
+Arquivo [`commitlint.config.js`](../commitlint.config.js):
 
-- Instalação
-- Exemplo de mensagem válida / inválida
-- Como testar localmente (`npx commitlint --from HEAD~1` ou equivalente)
+```js
+module.exports = { extends: ['@commitlint/config-conventional'] };
+```
+
+Hook Husky [`.husky/commit-msg`](../.husky/commit-msg):
+
+```sh
+npx --no -- commitlint --edit "$1"
+```
+
+## Exemplos
+
+Válido:
+
+```text
+chore: setup husky
+feat: add home page
+fix(home): correct typo
+```
+
+Inválido:
+
+```text
+bad message
+Updated stuff
+WIP
+```
+
+## Como testar localmente
+
+```bash
+echo "bad message" | npx commitlint          # deve falhar
+echo "chore: setup husky" | npx commitlint   # deve passar
+```
 
 ## Relacionados
 

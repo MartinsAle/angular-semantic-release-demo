@@ -12,10 +12,10 @@ Checklist de implementação do projeto de demonstração. Marque itens conforme
 
 ## Fase 1 — Git e hooks locais
 
-- [ ] `git init` e primeiro commit
-- [ ] Husky (hooks `pre-commit`, `commit-msg`)
-- [ ] lint-staged (lint/format no staged)
-- [ ] Conventional Commits + Commitlint
+- [x] `git init` e primeiro commit
+- [x] Husky (hooks `pre-commit`, `commit-msg`)
+- [x] lint-staged (lint/format no staged)
+- [x] Conventional Commits + Commitlint
 
 ## Fase 2 — Release automático
 
@@ -38,10 +38,10 @@ git init → Husky → lint-staged → Commitlint
 
 ## Docs por fase
 
-| Fase | Documentação |
-|------|----------------|
-| Base | [docs/architecture.md](../docs/architecture.md) |
+| Fase    | Documentação                                                                                                 |
+| ------- | ------------------------------------------------------------------------------------------------------------ |
+| Base    | [docs/architecture.md](../docs/architecture.md)                                                              |
 | Commits | [docs/conventional-commits.md](../docs/conventional-commits.md), [docs/commitlint.md](../docs/commitlint.md) |
-| Hooks | [docs/husky.md](../docs/husky.md) |
-| Release | [docs/semantic-release.md](../docs/semantic-release.md) |
-| CI | [docs/github-actions.md](../docs/github-actions.md), [docs/azure-devops.md](../docs/azure-devops.md) |
+| Hooks   | [docs/husky.md](../docs/husky.md)                                                                            |
+| Release | [docs/semantic-release.md](../docs/semantic-release.md)                                                      |
+| CI      | [docs/github-actions.md](../docs/github-actions.md), [docs/azure-devops.md](../docs/azure-devops.md)         |

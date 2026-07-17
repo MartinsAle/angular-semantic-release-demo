@@ -1,33 +1,49 @@
 # Husky
 
-**Status:** Pendente
+**Status:** Configurado
 
 ## Objetivo
 
 Executar hooks Git locais para garantir qualidade e padrão de commits antes de entrarem no histórico.
 
-## O que será configurado neste repo
+## Hooks neste repo
 
-| Hook | Função prevista |
-|------|-----------------|
-| `pre-commit` | Rodar lint-staged (ESLint / Prettier nos arquivos staged) |
-| `commit-msg` | Validar mensagem com Commitlint |
+| Hook         | Comando                              | Função                                |
+| ------------ | ------------------------------------ | ------------------------------------- |
+| `pre-commit` | `npx lint-staged`                    | ESLint + Prettier nos arquivos staged |
+| `commit-msg` | `npx --no -- commitlint --edit "$1"` | Valida Conventional Commits           |
 
-Pasta alvo: [`.husky/`](../.husky/) (hoje apenas placeholder).
+Pasta: [`.husky/`](../.husky/)
 
-## Pré-requisitos
+## Instalação (já aplicada)
 
-1. Repositório Git inicializado (`git init`)
-2. Instalação do Husky conforme [documentação oficial](https://typicode.github.io/husky/)
-3. Script `prepare` no `package.json` para instalar hooks após `npm install`
+```bash
+npm install --save-dev husky
+npx husky init
+npm install --save-dev lint-staged
+```
 
-## Como usar neste repo
+O script `"prepare": "husky"` no `package.json` reinstala os hooks após cada `npm install`.
 
-Será preenchido na fase Husky do [ROADMAP](../.ai/ROADMAP.md), incluindo:
+## Como funciona
 
-- Comandos de instalação
-- Conteúdo dos hooks
-- Integração com lint-staged e Commitlint
+1. `git commit` dispara `pre-commit` → lint-staged (só arquivos staged).
+2. Se passar, dispara `commit-msg` → Commitlint valida a mensagem.
+3. Se ambos passarem, o commit é criado.
+
+## lint-staged
+
+Configurado em `package.json`:
+
+- `*.{ts,html}` → `eslint --fix`
+- `*.{ts,html,css,json,md}` → `prettier --write`
+
+## Desabilitar temporariamente
+
+```bash
+git commit -m "..." -n          # pula hooks neste commit
+HUSKY=0 git commit -m "..."     # desabilita Husky
+```
 
 ## Relacionados
 
