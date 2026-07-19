@@ -8,16 +8,16 @@ Descrever a estrutura do app Angular de demonstração e o mapa da documentaçã
 
 ## Stack
 
-| Item | Valor |
-|------|--------|
-| Framework | Angular 19 |
-| Componentes | Standalone |
-| Routing | Sim |
-| Estilo | CSS |
-| SSR | Não |
-| Lint | ESLint + `angular-eslint@19` |
-| Format | Prettier + `eslint-config-prettier` |
-| Package manager | npm |
+| Item            | Valor                               |
+| --------------- | ----------------------------------- |
+| Framework       | Angular 19                          |
+| Componentes     | Standalone                          |
+| Routing         | Sim                                 |
+| Estilo          | CSS                                 |
+| SSR             | Não                                 |
+| Lint            | ESLint + `angular-eslint@19`        |
+| Format          | Prettier + `eslint-config-prettier` |
+| Package manager | npm                                 |
 
 ## Estrutura da aplicação
 
@@ -37,17 +37,17 @@ src/app/
 ```text
 .ai/          # Contexto operacional (agente / fases)
 docs/         # Guias humanos por tema
-.github/      # CI (placeholder até a fase GitHub Actions)
-.husky/       # Hooks (placeholder até a fase Husky)
+.github/      # CI/CD (workflows ci.yml + release.yml)
+.husky/       # Hooks locais (pre-commit, commit-msg)
 ```
 
-| Pasta / arquivo | Uso |
-|-----------------|-----|
+| Pasta / arquivo                             | Uso                                 |
+| ------------------------------------------- | ----------------------------------- |
 | [`.ai/AI_CONTEXT.md`](../.ai/AI_CONTEXT.md) | Estado atual; reescrito a cada fase |
-| [`.ai/ROADMAP.md`](../.ai/ROADMAP.md) | Checklist de implementação |
-| [`.ai/DECISIONS.md`](../.ai/DECISIONS.md) | Decisões arquiteturais (ADR) |
-| [`.ai/PROMPTS.md`](../.ai/PROMPTS.md) | Prompts usados no Cursor |
-| [`docs/`](./) | Guias por tema (este e os demais) |
+| [`.ai/ROADMAP.md`](../.ai/ROADMAP.md)       | Checklist de implementação          |
+| [`.ai/DECISIONS.md`](../.ai/DECISIONS.md)   | Decisões arquiteturais (ADR)        |
+| [`.ai/PROMPTS.md`](../.ai/PROMPTS.md)       | Prompts usados no Cursor            |
+| [`docs/`](./)                               | Guias por tema (este e os demais)   |
 
 ## Fluxo previsto (quando completo)
 

@@ -62,8 +62,8 @@ npm start
 
 ## Próximo passo
 
-Configurar **Semantic Release** (versionamento e CHANGELOG). Detalhes em [.ai/ROADMAP.md](.ai/ROADMAP.md).
+Completar a documentação de adaptação para **Azure DevOps** (`azure-pipelines.yml` + checklist). Detalhes em [.ai/ROADMAP.md](.ai/ROADMAP.md).
 
 ## Changelog
 
-Ver [CHANGELOG.md](CHANGELOG.md) (gerado pelo Semantic Release nas fases futuras).
+Ver [CHANGELOG.md](CHANGELOG.md) (gerado pelo Semantic Release no CI).

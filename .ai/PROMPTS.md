@@ -65,6 +65,20 @@ Registro dos prompts principais desta jornada, para rastreabilidade e reuso.
 
 ---
 
+## 5. GitHub Actions (CI + Release)
+
+**Prompt (resumo):**
+
+> Quero simular a pipeline que futuramente será executada no Azure DevOps. Crie uma GitHub Action dividida em duas workflows: `ci.yml` (install, lint, test, build) e `release.yml` (Semantic Release só no merge/push na `main`). Explique cada etapa.
+
+**Resultado:**
+
+- [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) e [`release.yml`](../.github/workflows/release.yml)
+- Docs: [`docs/github-actions.md`](../docs/github-actions.md), mapeamento em [`docs/azure-devops.md`](../docs/azure-devops.md)
+- ADR-012 em [`DECISIONS.md`](./DECISIONS.md)
+
+---
+
 ## Como atualizar este arquivo
 
 A cada fase relevante, acrescente uma seção com:

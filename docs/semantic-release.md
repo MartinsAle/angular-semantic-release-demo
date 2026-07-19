@@ -1,6 +1,6 @@
 # Semantic Release
 
-**Status:** Ativo (config local; disparo automático no CI = Fase 3)
+**Status:** Ativo (config local + disparo automático no CI via [`release.yml`](../.github/workflows/release.yml))
 
 ## Objetivo
 
@@ -70,7 +70,7 @@ Equivalente a `semantic-release --dry-run --no-ci`: analisa commits e mostra a p
 npm run release
 ```
 
-Em produção, rode no CI na `main` com token GitHub (Fase 3). Localmente só faz sentido com `--no-ci` e credenciais configuradas — prefira o dry-run para validar.
+Em produção, o workflow [`release.yml`](../.github/workflows/release.yml) roda na `main` com `GITHUB_TOKEN`. Localmente só faz sentido com `--no-ci` e credenciais configuradas — prefira o dry-run para validar.
 
 ### Tokens (CI)
 

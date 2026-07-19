@@ -94,3 +94,16 @@ Registro das decisões do projeto. Novas decisões devem ser acrescentadas aqui 
   - `@semantic-release/git` commita apenas `CHANGELOG.md` com mensagem `chore(release): … [skip ci]`
   - Scripts: `release` e `release:dry-run` (`--dry-run --no-ci`)
 - **Consequências:** CHANGELOG e GitHub Releases automáticos no CI (Fase 3); dry-run local valida a config sem publicar.
+
+## ADR-012 — Dois workflows GitHub Actions (CI + Release)
+
+- **Status:** Aceita
+- **Contexto:** Fase 3 — simular a pipeline futura do Azure DevOps no GitHub.
+- **Decisão:**
+  - [`ci.yml`](../.github/workflows/ci.yml): `push` + `pull_request` → `npm ci` → lint → test (Chrome headless) → build
+  - [`release.yml`](../.github/workflows/release.yml): só `push` na `main` → `npm run release`
+  - Node **22** no CI (LTS alinhado ao Angular 19)
+  - `npm ci` (install reproduzível)
+  - Skip de release quando a mensagem do commit contém `[skip ci]` (evita loop do `@semantic-release/git`)
+  - Token: `GITHUB_TOKEN` / `GH_TOKEN` do Actions, com `permissions` de contents/issues/pull-requests
+- **Consequências:** CI valida qualidade em qualquer branch; release só na `main`; mapeamento direto para stages Azure (ver [azure-devops.md](../docs/azure-devops.md)).

@@ -30,7 +30,7 @@ module.exports = {
     ],
 
     // publish: cria a tag Git (vX.Y.Z) e a GitHub Release com as notes.
-    // Requer GITHUB_TOKEN / GH_TOKEN no CI (Fase 3).
+    // Requer GITHUB_TOKEN / GH_TOKEN no CI (release.yml).
     '@semantic-release/github',
 
     // prepare: commit + push dos assets após o changelog estar atualizado.
