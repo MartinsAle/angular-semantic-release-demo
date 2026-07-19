@@ -52,6 +52,19 @@ Registro dos prompts principais desta jornada, para rastreabilidade e reuso.
 
 ---
 
+## 4. Documentar o “porquê” do lint-staged
+
+**Prompt (resumo):**
+
+> Configurar lint-staged para executar ESLint e Prettier apenas nos arquivos modificados durante o pre-commit. Explicar por que isso é melhor do que rodar lint em todo o projeto.
+
+**Resultado:**
+
+- Configuração já existente confirmada (Husky `pre-commit` → lint-staged)
+- Seção “Por que só arquivos staged?” em [`docs/husky.md`](../docs/husky.md)
+
+---
+
 ## Como atualizar este arquivo
 
 A cada fase relevante, acrescente uma seção com:

@@ -39,6 +39,16 @@ Configurado em `package.json`:
 - `*.{ts,html}` → `eslint --fix`
 - `*.{ts,html,css,json,md}` → `prettier --write`
 
+### Por que só arquivos staged?
+
+Rodar ESLint/Prettier só no staged (via lint-staged) é melhor do que lintar o projeto inteiro no `pre-commit`:
+
+1. **Velocidade** — o hook analisa só o que entra no commit. Em repos maiores, `ng lint` / ESLint no tree inteiro pode levar dezenas de segundos a minutos e vira atrito a cada commit.
+2. **Feedback no diff certo** — o desenvolvedor corrige o que está enviando agora, sem ruído de arquivos que não tocou (dívida antiga, gerados, etc.).
+3. **Menos falsos bloqueios** — um erro pré-existente em outro arquivo não impede um commit legítimo; a qualidade do _delta_ fica garantida localmente.
+4. **Auto-fix seguro** — `eslint --fix` e `prettier --write` reescrevem só o staged; o lint-staged re-stageia as correções. Rodar format/lint no repo todo no hook alteraria arquivos fora do commit.
+5. **Papel certo de cada camada** — hook = barreira rápida no staged; CI e scripts manuais (`npm run lint`, `format:check`) = garantia no projeto inteiro antes do merge/release.
+
 ## Desabilitar temporariamente
 
 ```bash
