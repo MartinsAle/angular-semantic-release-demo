@@ -18,7 +18,9 @@ Formato:
 [rodapé opcional]
 ```
 
-### Tipos comuns
+### Tipos permitidos
+
+Lista fechada validada por [`commitlint.config.js`](../commitlint.config.js):
 
 | Tipo       | Uso                                 | Impacto no versionamento (típico) |
 | ---------- | ----------------------------------- | --------------------------------- |
@@ -32,6 +34,7 @@ Formato:
 | `build`    | Build / deps                        | —                                 |
 | `ci`       | CI                                  | —                                 |
 | `chore`    | Manutenção                          | —                                 |
+| `revert`   | Reverter commit anterior            | —                                 |
 
 Breaking change: `BREAKING CHANGE:` no rodapé ou `!` após o type (`feat!: ...`) → MAJOR.
 
@@ -41,17 +44,18 @@ Breaking change: `BREAKING CHANGE:` no rodapé ou `!` após o type (`feat!: ...`
 feat: add home page shell
 fix: correct app title in header
 docs: describe conventional commits workflow
+style: format home page css
+revert: undo last change
 feat!: change release branch policy
 ```
 
 ## Como usar neste repo
 
-Ainda **não** há validação automática. Na próxima fase:
+1. Escreva a mensagem no formato Conventional Commits com um dos tipos da tabela.
+2. No `git commit`, o hook Husky `commit-msg` roda o Commitlint.
+3. Mensagens fora do padrão (ou com type não listado) são rejeitadas.
 
-1. Commitlint + config Conventional Commits
-2. Hook `commit-msg` via Husky
-
-Até lá, prefira seguir os exemplos acima manualmente.
+Detalhes: [commitlint.md](./commitlint.md).
 
 ## Relacionados
 

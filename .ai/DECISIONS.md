@@ -77,5 +77,7 @@ Registro das decisões do projeto. Novas decisões devem ser acrescentadas aqui 
 - **Decisão:**
   - Husky **v9** com `"prepare": "husky"` e hooks simples em `.husky/` (sem `husky.sh`)
   - `pre-commit` → `npx lint-staged` (ESLint + Prettier só no staged)
-  - `commit-msg` → `npx --no -- commitlint --edit "$1"` com `@commitlint/config-conventional`
-- **Consequências:** Commits locais passam por lint rápido e Conventional Commits; Semantic Release fica para a Fase 2.
+  - `commit-msg` → `node scripts/commit-msg-lint.js "$1"` (wrapper) que executa Commitlint com `@commitlint/config-conventional`
+  - UX amigável centralizada em `scripts/commit-msg-presentation.js` (ANSI, emojis, PT); regras do Commitlint inalteradas
+  - `type-enum` explícito em `commitlint.config.js`: `feat`, `fix`, `docs`, `chore`, `refactor`, `perf`, `test`, `ci`, `build`, `style`, `revert`
+- **Consequências:** Commits locais passam por lint rápido e Conventional Commits com orientação clara em falha; Semantic Release fica para a Fase 2.

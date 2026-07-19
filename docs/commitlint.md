@@ -11,9 +11,14 @@ Rejeitar commits cuja mensagem não siga [Conventional Commits](./conventional-c
 ```text
 git commit
   → Husky commit-msg
-  → commitlint
+  → scripts/commit-msg-lint.js   (orquestração)
+  → commitlint                   (validação)
+  → scripts/commit-msg-presentation.js  (UX amigável, se falhar)
   → aceita ou rejeita a mensagem
 ```
+
+- **Validação:** sempre pelo Commitlint e [`commitlint.config.js`](../commitlint.config.js).
+- **Apresentação:** mensagens profissionais em português em [`scripts/commit-msg-presentation.js`](../scripts/commit-msg-presentation.js) (cores ANSI, emojis, orientações). O output técnico do Commitlint não é exibido.
 
 ## Instalação (já aplicada)
 
@@ -26,13 +31,36 @@ npm install --save-dev @commitlint/cli @commitlint/config-conventional
 Arquivo [`commitlint.config.js`](../commitlint.config.js):
 
 ```js
-module.exports = { extends: ['@commitlint/config-conventional'] };
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat',
+        'fix',
+        'docs',
+        'chore',
+        'refactor',
+        'perf',
+        'test',
+        'ci',
+        'build',
+        'style',
+        'revert',
+      ],
+    ],
+  },
+};
 ```
+
+A regra `type-enum` (nível `2` = erro) aceita apenas os tipos listados. Qualquer outro type (ex.: `wip`, `update`) é rejeitado.
 
 Hook Husky [`.husky/commit-msg`](../.husky/commit-msg):
 
 ```sh
-npx --no -- commitlint --edit "$1"
+node scripts/commit-msg-lint.js "$1"
 ```
 
 ## Exemplos
@@ -43,6 +71,8 @@ Válido:
 chore: setup husky
 feat: add home page
 fix(home): correct typo
+style: format css
+revert: undo last change
 ```
 
 Inválido:
@@ -51,13 +81,24 @@ Inválido:
 bad message
 Updated stuff
 WIP
+wip: draft
 ```
 
 ## Como testar localmente
 
+Via wrapper (mesma UX do hook):
+
 ```bash
-echo "bad message" | npx commitlint          # deve falhar
-echo "chore: setup husky" | npx commitlint   # deve passar
+printf 'bad message\n' > /tmp/msg-bad && node scripts/commit-msg-lint.js /tmp/msg-bad
+printf 'wip: draft\n' > /tmp/msg-wip && node scripts/commit-msg-lint.js /tmp/msg-wip
+printf 'feat: add home page\n' > /tmp/msg-ok && node scripts/commit-msg-lint.js /tmp/msg-ok
+```
+
+Via Commitlint puro (validação sem UX):
+
+```bash
+echo "bad message" | npx commitlint
+echo "chore: setup husky" | npx commitlint
 ```
 
 ## Relacionados

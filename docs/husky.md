@@ -8,10 +8,10 @@ Executar hooks Git locais para garantir qualidade e padrão de commits antes de 
 
 ## Hooks neste repo
 
-| Hook         | Comando                              | Função                                |
-| ------------ | ------------------------------------ | ------------------------------------- |
-| `pre-commit` | `npx lint-staged`                    | ESLint + Prettier nos arquivos staged |
-| `commit-msg` | `npx --no -- commitlint --edit "$1"` | Valida Conventional Commits           |
+| Hook         | Comando                                | Função                                             |
+| ------------ | -------------------------------------- | -------------------------------------------------- |
+| `pre-commit` | `npx lint-staged`                      | ESLint + Prettier nos arquivos staged              |
+| `commit-msg` | `node scripts/commit-msg-lint.js "$1"` | Valida Conventional Commits (wrapper + Commitlint) |
 
 Pasta: [`.husky/`](../.husky/)
 
@@ -28,8 +28,9 @@ O script `"prepare": "husky"` no `package.json` reinstala os hooks após cada `n
 ## Como funciona
 
 1. `git commit` dispara `pre-commit` → lint-staged (só arquivos staged).
-2. Se passar, dispara `commit-msg` → Commitlint valida a mensagem.
-3. Se ambos passarem, o commit é criado.
+2. Se passar, dispara `commit-msg` → [`scripts/commit-msg-lint.js`](../scripts/commit-msg-lint.js) roda o Commitlint.
+3. Se a mensagem for inválida, [`scripts/commit-msg-presentation.js`](../scripts/commit-msg-presentation.js) exibe uma orientação amigável em português.
+4. Se ambos passarem, o commit é criado.
 
 ## lint-staged
 
