@@ -76,13 +76,14 @@ Em produção, o workflow [`release.yml`](../.github/workflows/release.yml) roda
 
 - `GITHUB_TOKEN` ou `GH_TOKEN` com permissão para criar releases e push do commit de changelog.
 - Detalhes do workflow: [github-actions.md](./github-actions.md).
+- No Azure DevOps (migração): `System.AccessToken` ou PAT via `GIT_CREDENTIALS`; sem `@semantic-release/github` — ver [azure-devops.md](./azure-devops.md).
 
 ## Relacionados
 
 - [semantic-versioning.md](./semantic-versioning.md) — o que significam MAJOR / MINOR / PATCH
 - [conventional-commits.md](./conventional-commits.md)
 - [github-actions.md](./github-actions.md)
-- [azure-devops.md](./azure-devops.md)
+- [azure-devops.md](./azure-devops.md) — configuração equivalente em Azure Pipelines
 
 ## Links oficiais
 

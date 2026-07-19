@@ -11,7 +11,7 @@ Demonstrar:
 - Semantic Release
 - CHANGELOG
 - GitHub Actions
-- Azure DevOps
+- Azure DevOps (documentação de portabilidade)
 
 ## Stack
 
@@ -23,7 +23,9 @@ Husky 9 + lint-staged + Commitlint (`@commitlint/config-conventional`)
 
 Semantic Release (`release.config.cjs`: changelog + git + github; sem npm)
 
-GitHub Actions: `ci.yml` + `release.yml` (Node 22 no CI)
+GitHub Actions: `ci.yml` + `release.yml` (Node 22 no CI) — implementação ativa
+
+Azure DevOps: `azure-pipelines.yml` + `docs/azure-devops.md` — referência de migração (não executado)
 
 Node 24 local · npm (CI usa Node 22)
 
@@ -36,10 +38,11 @@ Node 24 local · npm (CI usa Node 22)
 - Husky (`pre-commit` → lint-staged; `commit-msg` → Commitlint)
 - Semantic Release + plugins (CHANGELOG, tags, GitHub Release via config)
 - GitHub Actions: CI (install/lint/test/build) + Release na `main`
+- Documentação Azure DevOps: pipeline de referência + checklist de migração
 
 ## Próximo
 
-1. Documentação completa de adaptação para Azure DevOps (`azure-pipelines.yml` + checklist)
+Nenhuma fase pendente no roadmap. Manutenção e evolução sob demanda.
 
 Ver checklist completo em [ROADMAP.md](./ROADMAP.md).
 
@@ -58,6 +61,7 @@ Ver checklist completo em [ROADMAP.md](./ROADMAP.md).
 - Script `"prepare": "husky"` reinstala hooks após `npm install`.
 - `npm run release:dry-run` valida a config sem publicar.
 - Workflows em `.github/workflows/`; detalhes em [docs/github-actions.md](../docs/github-actions.md).
+- Pipeline Azure de referência na raiz (`azure-pipelines.yml`); guia em [docs/azure-devops.md](../docs/azure-devops.md).
 
 ## Referências rápidas
 

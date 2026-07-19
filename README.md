@@ -40,16 +40,16 @@ npm start
 
 ### Guias (`docs/`)
 
-| Documento                                            | Conteúdo                               |
-| ---------------------------------------------------- | -------------------------------------- |
-| [Architecture](docs/architecture.md)                 | Estrutura do app e mapa do repositório |
-| [Conventional Commits](docs/conventional-commits.md) | Padrão de mensagens de commit          |
-| [Semantic Versioning](docs/semantic-versioning.md)   | MAJOR / MINOR / PATCH e exemplos       |
-| [Husky](docs/husky.md)                               | Hooks Git locais                       |
-| [Commitlint](docs/commitlint.md)                     | Validação de mensagens                 |
-| [Semantic Release](docs/semantic-release.md)         | Versionamento e CHANGELOG              |
-| [GitHub Actions](docs/github-actions.md)             | CI/CD no GitHub                        |
-| [Azure DevOps](docs/azure-devops.md)                 | Portabilidade para Azure Pipelines     |
+| Documento                                            | Conteúdo                                        |
+| ---------------------------------------------------- | ----------------------------------------------- |
+| [Architecture](docs/architecture.md)                 | Estrutura do app e mapa do repositório          |
+| [Conventional Commits](docs/conventional-commits.md) | Padrão de mensagens de commit                   |
+| [Semantic Versioning](docs/semantic-versioning.md)   | MAJOR / MINOR / PATCH e exemplos                |
+| [Husky](docs/husky.md)                               | Hooks Git locais                                |
+| [Commitlint](docs/commitlint.md)                     | Validação de mensagens                          |
+| [Semantic Release](docs/semantic-release.md)         | Versionamento e CHANGELOG                       |
+| [GitHub Actions](docs/github-actions.md)             | CI/CD no GitHub                                 |
+| [Azure DevOps](docs/azure-devops.md)                 | Portabilidade para Azure Pipelines (referência) |
 
 ### Contexto de implementação (`.ai/`)
 
@@ -60,9 +60,10 @@ npm start
 | [DECISIONS.md](.ai/DECISIONS.md)   | Decisões arquiteturais (ADR) |
 | [PROMPTS.md](.ai/PROMPTS.md)       | Prompts usados no Cursor     |
 
-## Próximo passo
+## CI/CD neste demo
 
-Completar a documentação de adaptação para **Azure DevOps** (`azure-pipelines.yml` + checklist). Detalhes em [.ai/ROADMAP.md](.ai/ROADMAP.md).
+- **Ativo:** [GitHub Actions](docs/github-actions.md) (`.github/workflows/`)
+- **Referência de migração:** [Azure DevOps](docs/azure-devops.md) + [`azure-pipelines.yml`](azure-pipelines.yml) (não executado neste repositório)
 
 ## Changelog
 

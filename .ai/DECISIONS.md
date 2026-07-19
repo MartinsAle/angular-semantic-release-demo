@@ -107,3 +107,17 @@ Registro das decisões do projeto. Novas decisões devem ser acrescentadas aqui 
   - Skip de release quando a mensagem do commit contém `[skip ci]` (evita loop do `@semantic-release/git`)
   - Token: `GITHUB_TOKEN` / `GH_TOKEN` do Actions, com `permissions` de contents/issues/pull-requests
 - **Consequências:** CI valida qualidade em qualquer branch; release só na `main`; mapeamento direto para stages Azure (ver [azure-devops.md](../docs/azure-devops.md)).
+
+## ADR-013 — Azure DevOps como documentação de referência
+
+- **Status:** Aceita
+- **Contexto:** Fase 3 — fechar a portabilidade documentada para Azure Repos + Azure Pipelines sem executar Azure neste demo.
+- **Decisão:**
+  - Artefato [`azure-pipelines.yml`](../azure-pipelines.yml) na raiz com stages **CI** + **Release**, espelhando `ci.yml` + `release.yml`
+  - Guia oficial em [`docs/azure-devops.md`](../docs/azure-devops.md) (variáveis, permissões Build Service, Semantic Release, checklist, diferenças, cuidados)
+  - Auth preferida: `System.AccessToken` + `persistCredentials: true` + permissões Contribute / Create tag na identidade Build Service correta (project vs collection scope)
+  - Alternativa documentada: PAT via `GIT_CREDENTIALS` (URL-encoded)
+  - Node via `UseNode@1` (não `NodeTool@0`); cache npm via `Cache@2` + `npm_config_cache`
+  - Na migração real: remover `@semantic-release/github`; neste repo o plugin e os workflows GitHub **permanecem** (implementação ativa)
+  - Loop de release: confiar no skip nativo `[skip ci]` do Azure Pipelines
+- **Consequências:** Equipes podem migrar com checklist acionável; o demo permanece validado apenas no GitHub Actions; o YAML Azure não é executado neste repositório.

@@ -26,7 +26,7 @@ Checklist de implementação do projeto de demonstração. Marque itens conforme
 ## Fase 3 — CI/CD
 
 - [x] GitHub Actions (CI + release)
-- [ ] Documentação de adaptação para Azure DevOps (`azure-pipelines.yml` + checklist)
+- [x] Documentação de adaptação para Azure DevOps (`azure-pipelines.yml` + checklist)
 
 ## Ordem sugerida
 

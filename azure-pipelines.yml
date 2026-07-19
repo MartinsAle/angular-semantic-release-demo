@@ -1,0 +1,130 @@
+# =============================================================================
+# Azure Pipelines — referência de portabilidade (NÃO executado neste repositório)
+# =============================================================================
+# Equivalente a .github/workflows/ci.yml + release.yml.
+# Destino documentado: Azure Repos + Azure Pipelines.
+# Guia completo: docs/azure-devops.md
+#
+# Na migração real, remova @semantic-release/github de release.config.cjs
+# (tags Git + CHANGELOG são a fonte de verdade; sem GitHub Release).
+# =============================================================================
+
+trigger:
+  branches:
+    include:
+      - '*'
+
+pr:
+  branches:
+    include:
+      - '*'
+
+variables:
+  # Cache npm no workspace do agente (prática Microsoft; não cachear node_modules com npm ci)
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+
+stages:
+  # ---------------------------------------------------------------------------
+  # Stage CI — espelha .github/workflows/ci.yml
+  # ---------------------------------------------------------------------------
+  - stage: CI
+    displayName: Install, lint, test, build
+    jobs:
+      - job: Quality
+        displayName: Quality gates
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - checkout: self
+
+          - task: UseNode@1
+            displayName: Setup Node.js 22
+            inputs:
+              version: '22.x'
+
+          - task: Cache@2
+            displayName: Cache npm
+            inputs:
+              key: 'npm | "$(Agent.OS)" | package-lock.json'
+              restoreKeys: |
+                npm | "$(Agent.OS)"
+              path: $(npm_config_cache)
+
+          - script: npm ci
+            displayName: Install dependencies
+
+          - script: npm run lint
+            displayName: Lint
+
+          # Microsoft-hosted ubuntu-latest inclui Google Chrome; aponta CHROME_BIN para Karma.
+          - script: |
+              set -euo pipefail
+              CHROME_PATH="$(command -v google-chrome || command -v google-chrome-stable || true)"
+              if [ -z "$CHROME_PATH" ]; then
+                echo "##vso[task.logissue type=error]Google Chrome não encontrado no agente. Instale o browser ou ajuste CHROME_BIN."
+                exit 1
+              fi
+              echo "##vso[task.setvariable variable=CHROME_BIN]$CHROME_PATH"
+              echo "CHROME_BIN=$CHROME_PATH"
+            displayName: Resolve Chrome for Karma
+
+          - script: npm test -- --watch=false --browsers=ChromeHeadless
+            displayName: Test
+            env:
+              CHROME_BIN: $(CHROME_BIN)
+
+          - script: npm run build
+            displayName: Build
+
+  # ---------------------------------------------------------------------------
+  # Stage Release — espelha .github/workflows/release.yml
+  # Só na main, após CI bem-sucedido.
+  # [skip ci] no commit de release é tratado nativamente pelo Azure Pipelines
+  # (a pipeline não é enfileirada de novo).
+  # ---------------------------------------------------------------------------
+  - stage: Release
+    displayName: Semantic Release
+    dependsOn: CI
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - job: SemanticRelease
+        displayName: Semantic Release
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          # Histórico completo (fetchDepth: 0) para o commit-analyzer.
+          # persistCredentials: true deixa o OAuth token no Git config para push.
+          - checkout: self
+            fetchDepth: 0
+            persistCredentials: true
+
+          - task: UseNode@1
+            displayName: Setup Node.js 22
+            inputs:
+              version: '22.x'
+
+          - task: Cache@2
+            displayName: Cache npm
+            inputs:
+              key: 'npm | "$(Agent.OS)" | package-lock.json'
+              restoreKeys: |
+                npm | "$(Agent.OS)"
+              path: $(npm_config_cache)
+
+          - script: npm ci
+            displayName: Install dependencies
+
+          # Identidade Git obrigatória para o @semantic-release/git (commit + tag).
+          - script: |
+              git config user.email "azure-pipelines@users.noreply.azure.com"
+              git config user.name "Azure Pipelines"
+            displayName: Configure Git identity
+
+          # Preferido: System.AccessToken + permissões do Build Service (Contribute, Create tag).
+          # Alternativa (PAT): defina GIT_CREDENTIALS como secret no formato username:token (URL-encoded).
+          - script: npm run release
+            displayName: Semantic Release
+            env:
+              SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+              # Descomente se a organização exigir PAT em vez do token do Build Service:
+              # GIT_CREDENTIALS: $(GIT_CREDENTIALS)

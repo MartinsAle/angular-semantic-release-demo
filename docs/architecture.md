@@ -30,26 +30,28 @@ src/app/
 ```
 
 - Sem services, HTTP, formulários ou regras de negócio.
-- O valor do repositório está na estratégia de versionamento (próximas fases), não no produto.
+- O valor do repositório está na estratégia de versionamento, não no produto.
 
 ## Mapa da documentação
 
 ```text
-.ai/          # Contexto operacional (agente / fases)
-docs/         # Guias humanos por tema
-.github/      # CI/CD (workflows ci.yml + release.yml)
-.husky/       # Hooks locais (pre-commit, commit-msg)
+.ai/                   # Contexto operacional (agente / fases)
+docs/                  # Guias humanos por tema
+.github/               # CI/CD ativo (workflows ci.yml + release.yml)
+azure-pipelines.yml    # Referência Azure Pipelines (não executado neste demo)
+.husky/                # Hooks locais (pre-commit, commit-msg)
 ```
 
-| Pasta / arquivo                             | Uso                                 |
-| ------------------------------------------- | ----------------------------------- |
-| [`.ai/AI_CONTEXT.md`](../.ai/AI_CONTEXT.md) | Estado atual; reescrito a cada fase |
-| [`.ai/ROADMAP.md`](../.ai/ROADMAP.md)       | Checklist de implementação          |
-| [`.ai/DECISIONS.md`](../.ai/DECISIONS.md)   | Decisões arquiteturais (ADR)        |
-| [`.ai/PROMPTS.md`](../.ai/PROMPTS.md)       | Prompts usados no Cursor            |
-| [`docs/`](./)                               | Guias por tema (este e os demais)   |
+| Pasta / arquivo                                 | Uso                                 |
+| ----------------------------------------------- | ----------------------------------- |
+| [`.ai/AI_CONTEXT.md`](../.ai/AI_CONTEXT.md)     | Estado atual; reescrito a cada fase |
+| [`.ai/ROADMAP.md`](../.ai/ROADMAP.md)           | Checklist de implementação          |
+| [`.ai/DECISIONS.md`](../.ai/DECISIONS.md)       | Decisões arquiteturais (ADR)        |
+| [`.ai/PROMPTS.md`](../.ai/PROMPTS.md)           | Prompts usados no Cursor            |
+| [`docs/`](./)                                   | Guias por tema (este e os demais)   |
+| [`azure-pipelines.yml`](../azure-pipelines.yml) | Portabilidade Azure (referência)    |
 
-## Fluxo previsto (quando completo)
+## Fluxo (implementação ativa)
 
 ```text
 commit (Conventional Commits)
@@ -57,10 +59,10 @@ commit (Conventional Commits)
   → lint-staged + Commitlint
   → push
   → GitHub Actions
-  → Semantic Release → tag + CHANGELOG
+  → Semantic Release → tag + CHANGELOG (+ GitHub Release)
 ```
 
-Detalhes das decisões: [DECISIONS.md](../.ai/DECISIONS.md).
+Portabilidade documentada: [azure-devops.md](./azure-devops.md). Decisões: [DECISIONS.md](../.ai/DECISIONS.md).
 
 ## Links oficiais
 

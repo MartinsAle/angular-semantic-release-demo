@@ -4,7 +4,7 @@
 
 ## Objetivo
 
-Rodar CI (install / lint / test / build) e disparar Semantic Release no fluxo de integração contínua — simulando a pipeline que depois será portada para o Azure DevOps.
+Rodar CI (install / lint / test / build) e disparar Semantic Release no fluxo de integração contínua — implementação ativa deste demo. O equivalente documentado para Azure Pipelines está em [azure-devops.md](./azure-devops.md).
 
 ## Workflows
 
@@ -65,7 +65,7 @@ Não é necessário criar secret manual para o fluxo padrão deste repo. Se o re
 ## Relacionados
 
 - [semantic-release.md](./semantic-release.md)
-- [azure-devops.md](./azure-devops.md)
+- [azure-devops.md](./azure-devops.md) — portabilidade completa (YAML + checklist)
 - [conventional-commits.md](./conventional-commits.md)
 
 ## Links oficiais
