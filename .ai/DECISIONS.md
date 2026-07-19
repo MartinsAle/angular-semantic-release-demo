@@ -81,3 +81,16 @@ Registro das decisões do projeto. Novas decisões devem ser acrescentadas aqui 
   - UX amigável centralizada em `scripts/commit-msg-presentation.js` (ANSI, emojis, PT); regras do Commitlint inalteradas
   - `type-enum` explícito em `commitlint.config.js`: `feat`, `fix`, `docs`, `chore`, `refactor`, `perf`, `test`, `ci`, `build`, `style`, `revert`
 - **Consequências:** Commits locais passam por lint rápido e Conventional Commits com orientação clara em falha; Semantic Release fica para a Fase 2.
+
+## ADR-011 — Semantic Release sem npm publish
+
+- **Status:** Aceita
+- **Contexto:** Fase 2 — versionamento automático em app Angular `"private": true`.
+- **Decisão:**
+  - `semantic-release` com config em [`release.config.cjs`](../release.config.cjs) (API atual: `branches` + array `plugins`; sem formato legado por step)
+  - Branch de release: `main`
+  - Plugins: `commit-analyzer`, `release-notes-generator`, `changelog`, `github`, `git`
+  - **Sem** `@semantic-release/npm` — versão oficial nas tags Git (`vX.Y.Z`); `package.json` permanece `0.0.0`
+  - `@semantic-release/git` commita apenas `CHANGELOG.md` com mensagem `chore(release): … [skip ci]`
+  - Scripts: `release` e `release:dry-run` (`--dry-run --no-ci`)
+- **Consequências:** CHANGELOG e GitHub Releases automáticos no CI (Fase 3); dry-run local valida a config sem publicar.

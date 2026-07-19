@@ -1,7 +1,7 @@
 # Changelog
 
-Este arquivo será gerado e atualizado automaticamente pelo **Semantic Release** com base em Conventional Commits.
+Este arquivo é gerado e atualizado automaticamente pelo **Semantic Release** (`@semantic-release/changelog` + `@semantic-release/git`) com base em Conventional Commits.
 
-Até a fase de release do [roadmap](.ai/ROADMAP.md), não há versões publicadas.
+A primeira seção versionada aparece no próximo release (CI na `main`, Fase 3).
 
 Ver: [docs/semantic-release.md](docs/semantic-release.md).

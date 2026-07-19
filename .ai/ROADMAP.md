@@ -19,9 +19,9 @@ Checklist de implementação do projeto de demonstração. Marque itens conforme
 
 ## Fase 2 — Release automático
 
-- [ ] Semantic Release
-- [ ] CHANGELOG automático
-- [ ] Tags e versionamento semântico
+- [x] Semantic Release
+- [x] CHANGELOG automático
+- [x] Tags e versionamento semântico
 
 ## Fase 3 — CI/CD
 

@@ -1,37 +1,81 @@
 # Semantic Release
 
-**Status:** Pendente
+**Status:** Ativo (config local; disparo automático no CI = Fase 3)
 
 ## Objetivo
 
-Automatizar versionamento semântico, geração de tags Git e atualização do [CHANGELOG.md](../CHANGELOG.md) com base em Conventional Commits.
+Automatizar versionamento semântico, geração de tags Git, GitHub Releases e atualização do [CHANGELOG.md](../CHANGELOG.md) com base em Conventional Commits.
 
-## Fluxo previsto
+## Fluxo: do `git push` até tag, release e CHANGELOG
+
+O Semantic Release **não roda no `git push` em si**. O push dispara o CI; o job de release executa `npx semantic-release` (ver [github-actions.md](./github-actions.md)).
 
 ```text
-commits na branch de release
-  → análise dos tipos (feat / fix / BREAKING)
+commits na main (Conventional Commits)
+  → CI: npx semantic-release
+  → analyzeCommits (feat / fix / BREAKING)
   → calcula próxima versão (MAJOR.MINOR.PATCH)
-  → gera/atualiza CHANGELOG
-  → cria tag Git
-  → publica release (GitHub Releases, conforme config)
+  → generateNotes
+  → prepare: atualiza CHANGELOG.md + commit git [skip ci]
+  → publish: tag vX.Y.Z + GitHub Release
 ```
 
-## O que será configurado
+### Lifecycle
 
-- `semantic-release` e plugins oficiais necessários (changelog, git, github, etc.)
-- Configuração no repositório (arquivo de config ou `release` no `package.json`)
-- Integração com CI ([github-actions.md](./github-actions.md))
+| Step                 | O que acontece                                                      | Plugins neste repo           |
+| -------------------- | ------------------------------------------------------------------- | ---------------------------- |
+| **verifyConditions** | Branch, token GitHub, remotes, opções                               | `github`, `git`, `changelog` |
+| **analyzeCommits**   | Commits desde a última tag → major / minor / patch (ou sem release) | `commit-analyzer`            |
+| **generateNotes**    | Markdown das release notes                                          | `release-notes-generator`    |
+| **prepare**          | Escreve `CHANGELOG.md`; commit + push dos assets                    | `changelog`, `git`           |
+| **publish**          | Tag `vX.Y.Z` + GitHub Release                                       | `github`                     |
 
-O [CHANGELOG.md](../CHANGELOG.md) na raiz é placeholder até esta fase.
+Sem commits releasable desde a última tag (`docs:`, `chore:`, etc.), o processo **encerra sem criar versão**.
+
+### Artefatos
+
+| Artefato         | Onde                                                                   |
+| ---------------- | ---------------------------------------------------------------------- |
+| Versão semântica | Tags Git (`vX.Y.Z`); `package.json` permanece `0.0.0` (sem plugin npm) |
+| `CHANGELOG.md`   | Raiz, commitado pelo `@semantic-release/git`                           |
+| GitHub Release   | Aba Releases do repositório                                            |
+
+## Plugins
+
+Configuração em [`release.config.cjs`](../release.config.cjs) (API atual: array `plugins`, sem formato legado).
+
+| Plugin                                      | Papel                                      |
+| ------------------------------------------- | ------------------------------------------ |
+| `@semantic-release/commit-analyzer`         | Decide o tipo de release (preset angular)  |
+| `@semantic-release/release-notes-generator` | Gera as release notes                      |
+| `@semantic-release/changelog`               | Atualiza `CHANGELOG.md`                    |
+| `@semantic-release/github`                  | Cria tag + GitHub Release (`GITHUB_TOKEN`) |
+| `@semantic-release/git`                     | Commit do CHANGELOG com `[skip ci]`        |
+
+Branch de release: `main`. Decisão registrada em [ADR-011](../.ai/DECISIONS.md).
 
 ## Como usar neste repo
 
-Será preenchido na fase Semantic Release:
+### Dry-run local (sem publicar)
 
-- Branches de release
-- Plugins escolhidos e por quê (registrar também em [DECISIONS.md](../.ai/DECISIONS.md))
-- Como rodar localmente em dry-run
+```bash
+npm run release:dry-run
+```
+
+Equivalente a `semantic-release --dry-run --no-ci`: analisa commits e mostra a próxima versão/notes, **sem** alterar CHANGELOG, criar tag ou Release.
+
+### Release real
+
+```bash
+npm run release
+```
+
+Em produção, rode no CI na `main` com token GitHub (Fase 3). Localmente só faz sentido com `--no-ci` e credenciais configuradas — prefira o dry-run para validar.
+
+### Tokens (CI)
+
+- `GITHUB_TOKEN` ou `GH_TOKEN` com permissão para criar releases e push do commit de changelog.
+- Detalhes do workflow: [github-actions.md](./github-actions.md).
 
 ## Relacionados
 
