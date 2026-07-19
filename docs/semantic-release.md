@@ -35,6 +35,7 @@ Será preenchido na fase Semantic Release:
 
 ## Relacionados
 
+- [semantic-versioning.md](./semantic-versioning.md) — o que significam MAJOR / MINOR / PATCH
 - [conventional-commits.md](./conventional-commits.md)
 - [github-actions.md](./github-actions.md)
 - [azure-devops.md](./azure-devops.md)

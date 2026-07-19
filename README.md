@@ -44,6 +44,7 @@ npm start
 | ---------------------------------------------------- | -------------------------------------- |
 | [Architecture](docs/architecture.md)                 | Estrutura do app e mapa do repositório |
 | [Conventional Commits](docs/conventional-commits.md) | Padrão de mensagens de commit          |
+| [Semantic Versioning](docs/semantic-versioning.md)   | MAJOR / MINOR / PATCH e exemplos       |
 | [Husky](docs/husky.md)                               | Hooks Git locais                       |
 | [Commitlint](docs/commitlint.md)                     | Validação de mensagens                 |
 | [Semantic Release](docs/semantic-release.md)         | Versionamento e CHANGELOG              |

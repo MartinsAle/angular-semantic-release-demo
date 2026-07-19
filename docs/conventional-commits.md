@@ -59,6 +59,7 @@ Detalhes: [commitlint.md](./commitlint.md).
 
 ## Relacionados
 
+- [semantic-versioning.md](./semantic-versioning.md)
 - [commitlint.md](./commitlint.md)
 - [husky.md](./husky.md)
 - [semantic-release.md](./semantic-release.md)
